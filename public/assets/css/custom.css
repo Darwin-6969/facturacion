@@ -1,0 +1,967 @@
+/* =========================================================
+   SISTEMA DE FACTURACIÓN - ESTILOS PERSONALIZADOS
+   ========================================================= */
+
+   :root {
+    --primary: #4f46e5;
+    --primary-dark: #3730a3;
+    --secondary: #64748b;
+    --success: #10b981;
+    --info: #06b6d4;
+    --warning: #f59e0b;
+    --danger: #ef4444;
+    --dark: #0f172a;
+    --sidebar: #111827;
+    --sidebar-hover: #1e293b;
+    --light-bg: #f1f5f9;
+}
+
+/* =========================================================
+   GENERAL
+   ========================================================= */
+
+body {
+    font-family: "Source Sans 3", sans-serif;
+    background: var(--light-bg);
+    color: #1e293b;
+}
+
+.app-main {
+    background:
+        radial-gradient(circle at top right, rgba(79, 70, 229, 0.05), transparent 30%),
+        #f8fafc;
+    min-height: calc(100vh - 57px);
+}
+
+.app-content {
+    padding-bottom: 30px;
+}
+
+/* =========================================================
+   NAVBAR
+   ========================================================= */
+
+.app-header {
+    border-bottom: 1px solid rgba(15, 23, 42, 0.08) !important;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.05);
+    z-index: 1000;
+}
+
+.app-header .nav-link {
+    transition: all 0.2s ease;
+}
+
+.app-header .nav-link:hover {
+    color: var(--primary) !important;
+}
+
+/* Botón del sidebar */
+
+[data-lte-toggle="sidebar"] {
+    width: 42px;
+    height: 42px;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin-top: 4px;
+}
+
+[data-lte-toggle="sidebar"]:hover {
+    background: #eef2ff;
+    color: var(--primary);
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+
+.app-sidebar {
+    background: linear-gradient(
+        180deg,
+        #0f172a 0%,
+        #111827 55%,
+        #172554 100%
+    ) !important;
+
+    border-right: 0 !important;
+    box-shadow: 8px 0 30px rgba(15, 23, 42, 0.12) !important;
+}
+
+/* Marca */
+
+.sidebar-brand {
+    height: 70px !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-brand .brand-link {
+    height: 70px;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    text-decoration: none;
+}
+
+
+.sidebar-brand .brand-text {
+    color: white !important;
+    font-size: 18px;
+    font-weight: 700 !important;
+    letter-spacing: 0.2px;
+}
+
+/* Menú */
+
+.sidebar-menu {
+    padding: 12px 10px;
+}
+
+.sidebar-menu .nav-item {
+    margin-bottom: 5px;
+}
+
+.sidebar-menu .nav-link {
+    color: #cbd5e1 !important;
+    border-radius: 11px;
+    margin: 2px 0;
+    padding: 11px 13px;
+    transition: all 0.25s ease;
+    position: relative;
+}
+
+.sidebar-menu .nav-link:hover {
+    background: rgba(255, 255, 255, 0.07);
+    color: white !important;
+    transform: translateX(3px);
+}
+
+.sidebar-menu .nav-link.active {
+    background: linear-gradient(
+        135deg,
+        rgba(99, 102, 241, 0.95),
+        rgba(79, 70, 229, 0.85)
+    ) !important;
+
+    color: white !important;
+
+    box-shadow:
+        0 8px 18px rgba(79, 70, 229, 0.25);
+}
+
+.sidebar-menu .nav-icon {
+    font-size: 18px !important;
+    margin-right: 9px;
+}
+
+.sidebar-menu .nav-treeview {
+    padding-left: 12px;
+}
+
+.sidebar-menu .nav-treeview .nav-link {
+    font-size: 14px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+}
+
+.sidebar-menu .nav-treeview .nav-icon {
+    font-size: 9px !important;
+}
+
+/* Flecha */
+
+.nav-arrow {
+    transition: transform 0.25s ease;
+}
+
+.menu-open > .nav-link .nav-arrow {
+    transform: rotate(90deg);
+}
+
+/* =========================================================
+   PAGE HEADER
+   ========================================================= */
+
+.app-content-header {
+    padding-top: 25px;
+    padding-bottom: 12px;
+}
+
+.app-content-header h3 {
+    font-size: 25px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+.dashboard-welcome {
+    position: relative;
+    overflow: hidden;
+
+    padding: 28px 30px;
+
+    border-radius: 22px;
+
+    color: white;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(30, 41, 59, 0.97),
+            rgba(79, 70, 229, 0.93)
+        );
+
+    box-shadow:
+        0 15px 35px rgba(79, 70, 229, 0.18);
+
+    margin-bottom: 24px;
+}
+
+.dashboard-welcome::before {
+    content: "";
+    position: absolute;
+    width: 220px;
+    height: 220px;
+
+    right: -70px;
+    top: -100px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.dashboard-welcome::after {
+    content: "";
+    position: absolute;
+    width: 130px;
+    height: 130px;
+
+    right: 100px;
+    bottom: -80px;
+
+    border-radius: 50%;
+
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.dashboard-welcome h2 {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.dashboard-welcome p {
+    color: rgba(255, 255, 255, 0.78);
+    margin-bottom: 0;
+}
+
+/* Tarjetas */
+
+.dashboard-stat {
+    border: 0;
+    border-radius: 18px;
+
+    background: white;
+
+    box-shadow:
+        0 5px 25px rgba(15, 23, 42, 0.06);
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+
+    overflow: hidden;
+}
+
+.dashboard-stat:hover {
+    transform: translateY(-6px);
+
+    box-shadow:
+        0 15px 35px rgba(15, 23, 42, 0.12);
+}
+
+.dashboard-stat .card-body {
+    padding: 22px;
+}
+
+.stat-icon {
+    width: 54px;
+    height: 54px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    font-size: 24px;
+}
+
+.stat-icon.primary {
+    color: #4f46e5;
+    background: #eef2ff;
+}
+
+.stat-icon.success {
+    color: #059669;
+    background: #ecfdf5;
+}
+
+.stat-icon.warning {
+    color: #d97706;
+    background: #fffbeb;
+}
+
+.stat-icon.info {
+    color: #0891b2;
+    background: #ecfeff;
+}
+
+.stat-title {
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.stat-value {
+    color: #0f172a;
+    font-size: 25px;
+    font-weight: 700;
+}
+
+/* Acciones rápidas */
+
+.quick-action {
+    display: flex;
+    align-items: center;
+
+    text-decoration: none;
+
+    background: white;
+    color: #1e293b;
+
+    border: 1px solid #e2e8f0;
+    border-radius: 15px;
+
+    padding: 15px;
+
+    margin-bottom: 10px;
+
+    transition: all 0.25s ease;
+}
+
+.quick-action:hover {
+    color: var(--primary);
+    border-color: #c7d2fe;
+    background: #f8faff;
+
+    transform: translateX(4px);
+}
+
+.quick-action-icon {
+    width: 42px;
+    height: 42px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 12px;
+
+    margin-right: 12px;
+
+    background: #eef2ff;
+    color: var(--primary);
+
+    font-size: 18px;
+}
+
+/* =========================================================
+   CARDS GENERALES
+   ========================================================= */
+
+.card {
+    border: 0 !important;
+    border-radius: 18px !important;
+
+    box-shadow:
+        0 5px 25px rgba(15, 23, 42, 0.06) !important;
+}
+
+.card-header {
+    border-bottom: 1px solid #f1f5f9 !important;
+    background: white !important;
+    padding: 18px 22px !important;
+}
+
+.card-title {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+/* =========================================================
+   USER DROPDOWN
+   ========================================================= */
+
+.user-menu .nav-link {
+    border-radius: 12px;
+    padding: 7px 10px !important;
+}
+
+.user-menu .nav-link:hover {
+    background: #f1f5f9;
+}
+
+.user-menu .dropdown-menu {
+    border-radius: 16px !important;
+    overflow: hidden;
+    min-width: 270px;
+
+    box-shadow:
+        0 15px 40px rgba(15, 23, 42, 0.15) !important;
+}
+
+.user-header {
+    background:
+        linear-gradient(
+            135deg,
+            #eef2ff,
+            #f8fafc
+        ) !important;
+}
+
+.user-header .bi-person-circle {
+    font-size: 54px;
+    color: #6366f1 !important;
+}
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+   .login-page-custom {
+    min-height: 100vh !important;
+
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    overflow: hidden;
+
+    padding: 30px 15px;
+
+    /*
+     * IMPORTANTE:
+     * La imagen está en:
+     * public/assets/img/login-bg.jpg
+     */
+    background-image: url("../img/login-bg.jpg") !important;
+
+    background-color: #111827 !important;
+
+    background-size: cover !important;
+
+    background-position: center center !important;
+
+    background-repeat: no-repeat !important;
+
+    background-attachment: fixed !important;
+}
+
+
+/*
+=========================================================
+CAPA OSCURA SOBRE LA IMAGEN
+=========================================================
+*/
+
+.login-page-custom::before {
+
+    content: "";
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 0;
+
+    pointer-events: none;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(15, 23, 42, 0.82),
+            rgba(49, 46, 129, 0.68)
+        );
+}
+
+
+/*
+=========================================================
+DECORACIÓN SUPERIOR
+=========================================================
+*/
+
+.login-page-custom::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 450px;
+    height: 450px;
+
+    border-radius: 50%;
+
+    top: -220px;
+    left: -150px;
+
+    z-index: 1;
+
+    pointer-events: none;
+
+    background:
+        rgba(129, 140, 248, 0.12);
+
+    filter: blur(2px);
+}
+
+
+/*
+=========================================================
+CONTENEDOR DEL LOGIN
+=========================================================
+*/
+
+.login-container {
+
+    width: 100%;
+
+    max-width: 450px;
+
+    position: relative;
+
+    z-index: 10;
+
+    animation: loginAppear 0.7s ease;
+}
+
+
+/*
+=========================================================
+MARCA
+=========================================================
+*/
+
+.login-brand {
+
+    text-align: center;
+
+    color: white;
+
+    margin-bottom: 20px;
+
+    position: relative;
+
+    z-index: 10;
+}
+
+
+.login-brand-icon {
+
+    width: 75px;
+    height: 75px;
+
+    margin: 0 auto 13px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 22px;
+
+    background:
+        rgba(255, 255, 255, 0.14);
+
+    border:
+        1px solid rgba(255, 255, 255, 0.25);
+
+    backdrop-filter: blur(10px);
+
+    -webkit-backdrop-filter: blur(10px);
+
+    box-shadow:
+        0 15px 30px rgba(0, 0, 0, 0.20);
+}
+
+
+.login-brand-icon img {
+
+    width: 58px;
+
+    height: 58px;
+
+    object-fit: contain;
+
+    display: block;
+}
+
+
+.login-brand h1 {
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    margin-bottom: 4px;
+
+    color: white;
+}
+
+
+.login-brand p {
+
+    color:
+        rgba(255, 255, 255, 0.78);
+
+    margin: 0;
+}
+
+
+/*
+=========================================================
+CARD
+=========================================================
+*/
+
+.login-card {
+
+    position: relative;
+
+    z-index: 10;
+
+    border:
+        1px solid rgba(255, 255, 255, 0.25) !important;
+
+    border-radius: 24px !important;
+
+    background:
+        rgba(255, 255, 255, 0.96) !important;
+
+    backdrop-filter: blur(15px);
+
+    -webkit-backdrop-filter: blur(15px);
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.30) !important;
+
+    overflow: hidden;
+}
+
+
+.login-card .card-body {
+
+    padding: 35px;
+}
+
+
+.login-title {
+
+    color: #0f172a;
+
+    font-size: 22px;
+
+    font-weight: 700;
+}
+
+
+.login-subtitle {
+
+    color: #64748b;
+
+    font-size: 14px;
+}
+
+
+/*
+=========================================================
+INPUTS
+=========================================================
+*/
+
+.login-input {
+
+    border-radius: 12px !important;
+
+    border:
+        1px solid #e2e8f0 !important;
+
+    padding: 12px 14px !important;
+}
+
+
+.login-input:focus {
+
+    border-color:
+        #6366f1 !important;
+
+    box-shadow:
+        0 0 0 4px
+        rgba(99, 102, 241, 0.10) !important;
+}
+
+
+.login-input-group .input-group-text {
+
+    background:
+        #f8fafc !important;
+
+    border-color:
+        #e2e8f0 !important;
+
+    color:
+        #64748b;
+}
+
+
+/*
+=========================================================
+BOTÓN
+=========================================================
+*/
+
+.login-btn {
+
+    border: 0 !important;
+
+    border-radius: 12px !important;
+
+    padding: 12px !important;
+
+    font-weight: 700 !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #4f46e5
+        ) !important;
+
+    box-shadow:
+        0 10px 20px
+        rgba(79, 70, 229, 0.25);
+
+    transition:
+        all 0.25s ease;
+}
+
+
+.login-btn:hover {
+
+    transform:
+        translateY(-2px);
+
+    box-shadow:
+        0 14px 25px
+        rgba(79, 70, 229, 0.35);
+}
+
+
+/*
+=========================================================
+ANIMACIÓN
+=========================================================
+*/
+
+@keyframes loginAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(25px);
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+    }
+}
+
+/* =========================================================
+   LOGOUT
+   ========================================================= */
+
+.logout-page {
+    min-height: 100vh;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: relative;
+
+    background:
+        linear-gradient(
+            120deg,
+            rgba(15, 23, 42, 0.88),
+            rgba(30, 64, 175, 0.72)
+        ),
+        url("../img/logout-bg.jpg") center/cover no-repeat;
+
+    padding: 25px;
+}
+
+.logout-card {
+    width: 100%;
+    max-width: 470px;
+
+    text-align: center;
+
+    background: rgba(255, 255, 255, 0.95);
+
+    border-radius: 25px;
+
+    padding: 45px 35px;
+
+    box-shadow:
+        0 25px 70px rgba(0, 0, 0, 0.25);
+
+    animation: loginAppear 0.7s ease;
+}
+
+.logout-icon {
+    width: 85px;
+    height: 85px;
+
+    margin: 0 auto 20px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #ecfdf5;
+    color: #10b981;
+
+    font-size: 40px;
+
+    animation: checkPulse 1.8s infinite;
+}
+
+.logout-card h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #0f172a;
+}
+
+.logout-card p {
+    color: #64748b;
+}
+
+.logout-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    gap: 8px;
+
+    text-decoration: none;
+
+    border-radius: 12px;
+
+    padding: 12px 25px;
+
+    color: white !important;
+
+    background:
+        linear-gradient(
+            135deg,
+            #6366f1,
+            #4f46e5
+        );
+
+    font-weight: 700;
+
+    transition: all 0.25s ease;
+}
+
+.logout-btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 10px 25px rgba(79, 70, 229, 0.3);
+}
+
+/* =========================================================
+   ANIMACIONES
+   ========================================================= */
+
+@keyframes loginAppear {
+    from {
+        opacity: 0;
+        transform: translateY(25px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes checkPulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.3);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(16, 185, 129, 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(16, 185, 129, 0);
+    }
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+
+@media (max-width: 768px) {
+
+    .dashboard-welcome {
+        padding: 22px;
+    }
+
+    .dashboard-welcome h2 {
+        font-size: 23px;
+    }
+
+    .app-content-header {
+        padding-top: 18px;
+    }
+
+    .login-card .card-body {
+        padding: 27px 22px;
+    }
+
+    .login-brand h1 {
+        font-size: 24px;
+    }
+}

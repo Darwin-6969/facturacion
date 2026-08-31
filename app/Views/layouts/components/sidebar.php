@@ -1,49 +1,119 @@
-<aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
-    <div class="sidebar-brand">
-        <a href="<?= base_url() ?>" class="brand-link">
-            <span class="brand-text fw-light">Facturación App</span>
-        </a>
-    </div>
+<aside class="app-sidebar shadow"
+       data-bs-theme="dark">
 
+    <!-- Marca -->
+    <div class="sidebar-brand">
+
+    <a href="<?= base_url('facturacion') ?>"
+       class="brand-link d-flex align-items-center">
+
+        <img
+            src="<?= base_url('assets/img/logo.png') ?>"
+            alt="Logo Facturación"
+            style="
+                width: 40px;
+                height: 40px;
+                object-fit: contain;
+                margin-right: 10px;
+            "
+        >
+
+        <span class="brand-text fw-semibold">
+            Facturación App
+        </span>
+
+    </a>
+
+</div>
+
+
+    <!-- Menú -->
     <div class="sidebar-wrapper">
+
         <nav class="mt-2">
-            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                
-                <!-- Opción Simple: Dashboard -->
+
+            <ul class="nav sidebar-menu flex-column"
+                data-lte-toggle="treeview"
+                role="menu"
+                data-accordion="false">
+
+                <!-- Dashboard -->
                 <li class="nav-item">
-                    <a href="<?= base_url('dashboard') ?>" class="nav-link <?= url_is('dashboard') ? 'active' : '' ?>">
-                        <i class="nav-icon bi bi-speedometer"></i>
-                        <p>Dashboard</p>
+
+                    <a href="<?= base_url('facturacion') ?>"
+                       class="nav-link <?= url_is('facturacion') ? 'active' : '' ?>">
+
+                        <i class="nav-icon bi bi-grid-1x2-fill"></i>
+
+                        <p>
+                            Dashboard
+                        </p>
+
                     </a>
+
                 </li>
 
-                <!-- Opción con Desplegable: Facturación -->
-                <!-- url_is('facturas*') detecta 'facturas', 'facturas/nueva', 'facturas/editar/1', etc. -->
+
+                <!-- Facturación -->
                 <li class="nav-item <?= url_is('facturas*') ? 'menu-open' : '' ?>">
-                    <a href="#" class="nav-link <?= url_is('facturas*') ? 'active' : '' ?>">
-                        <i class="nav-icon bi bi-receipt"></i>
+
+                    <a href="#"
+                       class="nav-link <?= url_is('facturas*') ? 'active' : '' ?>">
+
+                        <i class="nav-icon bi bi-receipt-cutoff"></i>
+
                         <p>
                             Facturación
+
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
+
                     </a>
+
+
                     <ul class="nav nav-treeview">
+
+                        <!-- Nueva factura -->
                         <li class="nav-item">
-                            <a href="<?= base_url('facturas/nueva') ?>" class="nav-link <?= url_is('facturas/nueva') ? 'active' : '' ?>">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Nueva Factura</p>
+
+                            <a href="<?= base_url('facturas/nueva') ?>"
+                               class="nav-link <?= url_is('facturas/nueva') ? 'active' : '' ?>">
+
+                                <i class="nav-icon bi bi-plus-circle"></i>
+
+                                <p>
+                                    Nueva Factura
+                                </p>
+
                             </a>
+
                         </li>
+
+
+                        <!-- Historial -->
                         <li class="nav-item">
-                            <a href="<?= base_url('facturas') ?>" class="nav-link <?= url_is('facturas') ? 'active' : '' ?>">
-                                <i class="nav-icon bi bi-circle"></i>
-                                <p>Historial</p>
+
+                            <a href="<?= base_url('facturas') ?>"
+                               class="nav-link <?= url_is('facturas') ? 'active' : '' ?>">
+
+                                <i class="nav-icon bi bi-clock-history"></i>
+
+                                <p>
+                                    Historial
+                                </p>
+
                             </a>
+
                         </li>
+
                     </ul>
+
                 </li>
 
             </ul>
+
         </nav>
+
     </div>
+
 </aside>
