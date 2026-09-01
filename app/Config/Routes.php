@@ -13,4 +13,8 @@ $routes->group('', ['filter' => 'auth'], function($routes) {
     $routes->get('/', 'Home::index');
     $routes->get('facturacion', 'Home::index');
     // Registra aquí los demás módulos protegidos...
+
+    $routes->get('categorias', 'CategoriaController::index');
+    $routes->post('categorias/guardar', 'CategoriaController::guardar');
+    $routes->get('categorias/eliminar/(:num)', 'CategoriaController::eliminar/$1');
 });
