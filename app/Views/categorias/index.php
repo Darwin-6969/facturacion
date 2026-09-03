@@ -211,3 +211,4 @@ Administración de Categorías
     });
 </script>
 <?= $this->endSection() ?>
+

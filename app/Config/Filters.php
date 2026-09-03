@@ -38,6 +38,7 @@ class Filters extends BaseFilters
         'toolbar'       => \CodeIgniter\Filters\DebugToolbar::class,
         'honeypot'      => \CodeIgniter\Filters\Honeypot::class,
         'auth'          => \App\Filters\AuthFilter::class, // <-- Añadir esta línea
+        'ajax'          => \App\Filters\AjaxFilter::class, // <-- Añadir esta línea 
 
     ];
 
