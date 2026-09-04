@@ -3,21 +3,30 @@
 use CodeIgniter\Router\RouteCollection;
 
 /** @var RouteCollection $routes */
+
 // Rutas Públicas (Login)
 $routes->get('login', 'AuthController::index');
 $routes->post('login/authenticate', 'AuthController::authenticate');
 $routes->get('logout', 'AuthController::logout');
 
-// 1. Rutas Protegidas que SÍ muestran vistas HTML (Solo requieren 'auth')
+// 1. Rutas Protegidas del Sistema (Requieren filtro 'auth')
 $routes->group('', ['filter' => ['auth']], function($routes) {
+    // Inicio / Dashboard
     $routes->get('/', 'Home::index');
     $routes->get('facturacion', 'Home::index');
+    
+    // Módulo de Categorías
     $routes->get('categorias', 'CategoriaController::index');
-});
-
-// 2. Rutas Protegidas exclusivas para AJAX (Requieren 'auth' y 'ajax')
-$routes->group('', ['filter' => ['auth', 'ajax']], function($routes) {
     $routes->post('categorias/guardar', 'CategoriaController::guardar');
     $routes->get('categorias/eliminar/(:num)', 'CategoriaController::eliminar/$1');
-    // Agrega aquí otras rutas que solo respondan a JavaScript
+
+    // Módulo de Marcas
+    $routes->get('marcas', 'MarcaController::index');
+    $routes->post('marcas/guardar', 'MarcaController::guardar');
+    $routes->get('marcas/eliminar/(:num)', 'MarcaController::eliminar/$1');
+});
+
+// 2. Rutas Protegidas exclusivas para AJAX (Peticiones asíncronas vía Fetch/Axios/jQuery $.ajax)
+$routes->group('', ['filter' => ['auth', 'ajax']], function($routes) {
+    // Agrega aquí únicamente rutas que retornen JSON o fragmentos HTML vía AJAX.
 });

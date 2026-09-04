@@ -53,6 +53,14 @@
 
                 </li>
 
+                <!-- Marcas -->
+                <li class="nav-item">
+                    <a href="<?= base_url('marcas') ?>" class="nav-link <?= url_is('marcas*') ? 'active' : '' ?>">
+                        <i class="nav-icon bi bi-bookmark-check-fill"></i>
+                        <p>Marcas</p>
+                    </a>
+                </li>
+
 
                 <!-- Facturación -->
                 <li class="nav-item <?= url_is('facturas*') ? 'menu-open' : '' ?>">
