@@ -53,6 +53,14 @@
 
                 </li>
 
+                <!-- Clientes -->
+                <li class="nav-item">
+                    <a href="<?= base_url('clientes') ?>" class="nav-link <?= url_is('clientes*') ? 'active' : '' ?>">
+                        <i class="nav-icon bi bi-people-fill"></i>
+                        <p>Clientes</p>
+                    </a>
+                </li>
+
                 <!-- Marcas -->
                 <li class="nav-item">
                     <a href="<?= base_url('marcas') ?>" class="nav-link <?= url_is('marcas*') ? 'active' : '' ?>">
@@ -83,6 +91,18 @@
                         <a href="<?= base_url('categorias') ?>" class="nav-link <?= url_is('categorias*') ? 'active' : '' ?>">
                             <i class="nav-icon bi bi-tags-fill"></i>
                             <p>Categorías</p>
+                        </a>
+                    </li>
+
+                    <a class="nav-link" href="<?= base_url('proveedores') ?>">
+                        <div class="sb-nav-link-icon"><i class="fas fa-truck"></i></div>
+                        Proveedores
+                    </a>
+
+                    <li class="nav-item">
+                        <a href="<?= base_url('usuarios') ?>" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Usuarios</p>
                         </a>
                     </li>
 
