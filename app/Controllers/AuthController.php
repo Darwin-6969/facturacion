@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\UsuarioModel;
+
 class AuthController extends BaseController
 {
     public function index()
@@ -15,29 +17,44 @@ class AuthController extends BaseController
 
     public function authenticate()
     {
-        $username = $this->request->getPost('username');
-        $password = $this->request->getPost('password');
+        $correo   = trim($this->request->getPost('username')); // 'username' del formulario se evalúa contra 'correo'
+        $clave = $this->request->getPost('password');
 
-        // Validacion estática temporal
-        if ($username === 'admin' && $password === 'admin') {
+        if (empty($correo) || empty($clave)) {
+            return redirect()->back()->with('error', 'Por favor, ingrese el correo y la contraseña.');
+        }
+
+        $usuarioModel = new UsuarioModel();
+        
+        // Buscar el usuario por su correo electrónico
+        $usuario = $usuarioModel->where('correo', $correo)->first();
+
+        // Validar existencia de usuario, verificación de contraseña cifrada y estado activo
+        if ($usuario && password_verify($clave, $usuario['clave'])) {
+            
+            if (!$usuario['estado']) {
+                return redirect()->back()->with('error', 'El usuario se encuentra inactivo.');
+            }
+
+            // Guardar variables necesarias en la sesión
             session()->set([
-                'username'   => 'admin',
-                'name'       => 'Usuario Administrador',
+                'id_usuario' => $usuario['id_usuario'],
+                'nombre'     => $usuario['nombre'],
+                'correo'     => $usuario['correo'],
+                'rol'        => $usuario['rol'],
                 'isLoggedIn' => true
             ]);
 
             return redirect()->to(base_url('facturacion'));
         }
 
-        return redirect()->back()->with('error', 'Usuario o contraseña incorrectos.');
+        return redirect()->back()->with('error', 'Correo o contraseña incorrectos.');
     }
 
     public function logout()
-{
-    session()->destroy();
+    {
+        session()->destroy();
 
-    return view('auth/logout');
+        return view('auth/logout');
+    }
 }
-
-}
-
