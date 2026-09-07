@@ -1,56 +1,26 @@
-<aside class="app-sidebar shadow"
-       data-bs-theme="dark">
+<aside class="app-sidebar shadow" data-bs-theme="dark">
 
-    <!-- Marca -->
+    <!-- Marca / Logo -->
     <div class="sidebar-brand">
+        <a href="<?= base_url('dashboard') ?>" class="brand-link d-flex align-items-center">
+            <img src="<?= base_url('assets/img/logo.png') ?>" 
+                 alt="Logo Facturación" 
+                 style="width: 40px; height: 40px; object-fit: contain; margin-right: 10px;">
+            <span class="brand-text fw-semibold">Facturación App</span>
+        </a>
+    </div>
 
-    <a href="<?= base_url('facturacion') ?>"
-       class="brand-link d-flex align-items-center">
-
-        <img
-            src="<?= base_url('assets/img/logo.png') ?>"
-            alt="Logo Facturación"
-            style="
-                width: 40px;
-                height: 40px;
-                object-fit: contain;
-                margin-right: 10px;
-            "
-        >
-
-        <span class="brand-text fw-semibold">
-            Facturación App
-        </span>
-
-    </a>
-
-</div>
-
-
-    <!-- Menú -->
+    <!-- Menú Principal -->
     <div class="sidebar-wrapper">
-
         <nav class="mt-2">
+            <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
 
-            <ul class="nav sidebar-menu flex-column"
-                data-lte-toggle="treeview"
-                role="menu"
-                data-accordion="false">
-
-                <!-- Dashboard -->
+                <!-- Dashboard (Ruta independiente) -->
                 <li class="nav-item">
-
-                    <a href="<?= base_url('facturacion') ?>"
-                       class="nav-link <?= url_is('facturacion') ? 'active' : '' ?>">
-
+                    <a href="<?= base_url('dashboard') ?>" class="nav-link <?= url_is('dashboard') || url_is('/') ? 'active' : '' ?>">
                         <i class="nav-icon bi bi-grid-1x2-fill"></i>
-
-                        <p>
-                            Dashboard
-                        </p>
-
+                        <p>Dashboard</p>
                     </a>
-
                 </li>
 
                 <!-- Clientes -->
@@ -58,6 +28,14 @@
                     <a href="<?= base_url('clientes') ?>" class="nav-link <?= url_is('clientes*') ? 'active' : '' ?>">
                         <i class="nav-icon bi bi-people-fill"></i>
                         <p>Clientes</p>
+                    </a>
+                </li>
+
+                <!-- Categorías -->
+                <li class="nav-item">
+                    <a href="<?= base_url('categorias') ?>" class="nav-link <?= url_is('categorias*') ? 'active' : '' ?>">
+                        <i class="nav-icon bi bi-tags-fill"></i>
+                        <p>Categorías</p>
                     </a>
                 </li>
 
@@ -69,87 +47,59 @@
                     </a>
                 </li>
 
+                <!-- Proveedores -->
+                <li class="nav-item">
+                    <a href="<?= base_url('proveedores') ?>" class="nav-link <?= url_is('proveedores*') ? 'active' : '' ?>">
+                        <i class="nav-icon bi bi-truck"></i>
+                        <p>Proveedores</p>
+                    </a>
+                </li>
 
-                <!-- Facturación -->
+                <!-- Productos -->
+                <li class="nav-item">
+                    <a href="<?= base_url('productos') ?>" class="nav-link <?= url_is('productos*') ? 'active' : '' ?>">
+                        <i class="nav-icon bi bi-boxes"></i>
+                        <p>Productos</p>
+                    </a>
+                </li>
+
+                <!-- Módulo Facturación (Desplegable) -->
                 <li class="nav-item <?= url_is('facturas*') ? 'menu-open' : '' ?>">
-
-                    <a href="#"
-                       class="nav-link <?= url_is('facturas*') ? 'active' : '' ?>">
-
+                    <a href="#" class="nav-link <?= url_is('facturas*') ? 'active' : '' ?>">
                         <i class="nav-icon bi bi-receipt-cutoff"></i>
-
                         <p>
                             Facturación
-
                             <i class="nav-arrow bi bi-chevron-right"></i>
                         </p>
-
                     </a>
-
-                    <!-- Categorías -->
-                    <li class="nav-item">
-                        <a href="<?= base_url('categorias') ?>" class="nav-link <?= url_is('categorias*') ? 'active' : '' ?>">
-                            <i class="nav-icon bi bi-tags-fill"></i>
-                            <p>Categorías</p>
-                        </a>
-                    </li>
-
-                    <a class="nav-link" href="<?= base_url('proveedores') ?>">
-                        <div class="sb-nav-link-icon"><i class="fas fa-truck"></i></div>
-                        Proveedores
-                    </a>
-
-                    <li class="nav-item">
-                        <a href="<?= base_url('usuarios') ?>" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
-                            <p>Usuarios</p>
-                        </a>
-                    </li>
-
-
                     <ul class="nav nav-treeview">
-
-                        <!-- Nueva factura -->
+                        <!-- Registrar Nueva Venta -->
                         <li class="nav-item">
-
-                            <a href="<?= base_url('facturas/nueva') ?>"
-                               class="nav-link <?= url_is('facturas/nueva') ? 'active' : '' ?>">
-
+                            <a href="<?= base_url('facturas/nueva') ?>" class="nav-link <?= url_is('facturas/nueva') ? 'active' : '' ?>">
                                 <i class="nav-icon bi bi-plus-circle"></i>
-
-                                <p>
-                                    Nueva Factura
-                                </p>
-
+                                <p>Nueva Factura</p>
                             </a>
-
                         </li>
-
-
-                        <!-- Historial -->
+                        <!-- Historial de Facturas -->
                         <li class="nav-item">
-
-                            <a href="<?= base_url('facturas') ?>"
-                               class="nav-link <?= url_is('facturas') ? 'active' : '' ?>">
-
+                            <a href="<?= base_url('facturas') ?>" class="nav-link <?= (url_is('facturas') && !url_is('facturas/nueva')) ? 'active' : '' ?>">
                                 <i class="nav-icon bi bi-clock-history"></i>
-
-                                <p>
-                                    Historial
-                                </p>
-
+                                <p>Historial</p>
                             </a>
-
                         </li>
-
                     </ul>
+                </li>
 
+                <!-- Usuarios -->
+                <li class="nav-item">
+                    <a href="<?= base_url('usuarios') ?>" class="nav-link <?= url_is('usuarios*') ? 'active' : '' ?>">
+                        <i class="nav-icon bi bi-person-gear"></i>
+                        <p>Usuarios</p>
+                    </a>
                 </li>
 
             </ul>
-
         </nav>
-
     </div>
 
 </aside>

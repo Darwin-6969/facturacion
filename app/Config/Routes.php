@@ -46,9 +46,26 @@ $routes->group('', ['filter' => ['auth']], function($routes) {
         $routes->get('eliminar/(:num)', 'UsuarioController::eliminar/$1');
     });
 
+    // Módulo de Productos
+    $routes->group('productos', function($routes) {
+        $routes->get('', 'ProductoController::index');
+        $routes->get('index', 'ProductoController::index');
+        $routes->post('guardar', 'ProductoController::guardar');
+        $routes->get('eliminar/(:num)', 'ProductoController::eliminar/$1');
+    });
+
+    // facturas nuevas
+    $routes->get('facturas', 'FacturacionController::index');
+    $routes->get('facturas/nueva', 'FacturacionController::nueva');
+
 });
 
 // 2. Rutas Protegidas exclusivas para AJAX
 $routes->group('', ['filter' => ['auth', 'ajax']], function($routes) {
     // Agrega aquí únicamente rutas que retornen JSON o fragmentos HTML vía AJAX.
+
+    $routes->get('facturacion/buscarCliente', 'FacturacionController::buscarCliente');
+    $routes->get('facturacion/buscarProducto', 'FacturacionController::buscarProducto');
+    $routes->get('facturacion/verDetalle/(:num)', 'FacturacionController::verDetalle/$1');
+    $routes->post('facturacion/guardar', 'FacturacionController::guardar');
 });
