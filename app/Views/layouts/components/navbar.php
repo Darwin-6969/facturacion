@@ -21,7 +21,7 @@
 
             <li class="nav-item d-none d-md-block">
 
-                <a href="<?= base_url('facturacion') ?>"
+                <a href="<?= base_url('dashboard') ?>"
                    class="nav-link fw-semibold">
 
                     <i class="bi bi-house-door me-1"></i>
@@ -46,9 +46,9 @@
 
                     <i class="bi bi-person-circle fs-4 text-primary"></i>
 
-                    <span class="d-none d-md-inline fw-semibold text-secondary">
+                    <span class="d-none d-md-inline fw-semibold text-secondary text-capitalize">
 
-                        <?= session('name') ?? 'Administrador' ?>
+                        <?= esc(session()->get('nombre') ?? 'Usuario') ?>
 
                     </span>
 
@@ -63,25 +63,25 @@
 
                         <div class="mb-2">
 
-                            <i class="bi bi-person-circle"></i>
+                            <i class="bi bi-person-circle fs-1 text-primary"></i>
 
                         </div>
 
-                        <p class="mb-1 fw-bold">
+                        <p class="mb-1 fw-bold text-capitalize">
 
-                            <?= session('name') ?? 'Usuario Administrador' ?>
+                            <?= esc(session()->get('nombre') ?? 'Usuario') ?>
 
                         </p>
 
                         <small class="text-muted d-block mb-2">
 
-                            @<?= session('username') ?? 'admin' ?>
+                            <?= esc(session()->get('correo') ?? '') ?>
 
                         </small>
 
-                        <span class="badge bg-primary-subtle text-primary rounded-pill px-3">
+                        <span class="badge bg-primary-subtle text-primary rounded-pill px-3 text-capitalize">
 
-                            Administrador
+                            <?= esc(session()->get('rol') ?? 'encargado') ?>
 
                         </span>
 

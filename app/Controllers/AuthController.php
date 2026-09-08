@@ -8,53 +8,54 @@ class AuthController extends BaseController
 {
     public function index()
     {
-        // Si ya está autenticado, redirigir al módulo principal
+        // Si ya está autenticado, redirigir según su rol
         if (session()->get('isLoggedIn')) {
-            return redirect()->to(base_url('facturacion'));
+            if (session()->get('rol') === 'encargado') {
+                return redirect()->to(base_url('facturas'));
+            }
+            return redirect()->to(base_url('dashboard'));
         }
+        
         return view('auth/login');
     }
 
     public function authenticate()
     {
-        $correo   = trim($this->request->getPost('username')); // 'username' del formulario se evalúa contra 'correo'
-        $clave = $this->request->getPost('password');
-
-        if (empty($correo) || empty($clave)) {
-            return redirect()->back()->with('error', 'Por favor, ingrese el correo y la contraseña.');
-        }
+        $correo   = $this->request->getPost('correo');
+        $password = $this->request->getPost('password');
 
         $usuarioModel = new UsuarioModel();
-        
-        // Buscar el usuario por su correo electrónico
-        $usuario = $usuarioModel->where('correo', $correo)->first();
+        $user         = $usuarioModel->where('correo', $correo)
+                                     ->where('estado', 1) // Solo usuarios activos
+                                     ->first();
 
-        // Validar existencia de usuario, verificación de contraseña cifrada y estado activo
-        if ($usuario && password_verify($clave, $usuario['clave'])) {
-            
-            if (!$usuario['estado']) {
-                return redirect()->back()->with('error', 'El usuario se encuentra inactivo.');
-            }
-
-            // Guardar variables necesarias en la sesión
+        if ($user && password_verify($password, $user['clave'])) {
+            // Guardar datos en la sesión
             session()->set([
-                'id_usuario' => $usuario['id_usuario'],
-                'nombre'     => $usuario['nombre'],
-                'correo'     => $usuario['correo'],
-                'rol'        => $usuario['rol'],
-                'isLoggedIn' => true
+                'id_usuario' => $user['id_usuario'],
+                'nombre'     => $user['nombre'],
+                'correo'     => $user['correo'],
+                'rol'        => $user['rol'],
+                'isLoggedIn' => true,
             ]);
 
-            return redirect()->to(base_url('facturacion'));
+            // Redirigir según el rol del usuario
+            if ($user['rol'] === 'encargado') {
+                return redirect()->to(base_url('facturas'));
+            }
+
+            return redirect()->to(base_url('dashboard'));
         }
 
-        return redirect()->back()->with('error', 'Correo o contraseña incorrectos.');
+        return redirect()->back()->with('error', 'Credenciales incorrectas o usuario inactivo.');
     }
 
     public function logout()
     {
+        // Destruir la sesión activa
         session()->destroy();
 
+        // Cargar la vista auth/logout.php
         return view('auth/logout');
     }
 }

@@ -157,8 +157,8 @@
 
                             <input
                                 type="text"
-                                name="username"
-                                id="username"
+                                name="correo"
+                                id="correo"
                                 class="form-control login-input"
                                 placeholder="Ingresa tu usuario"
                                 required

@@ -9,28 +9,40 @@ $routes->get('login', 'AuthController::index');
 $routes->post('login/authenticate', 'AuthController::authenticate');
 $routes->get('logout', 'AuthController::logout');
 
-// 1. Rutas Protegidas del Sistema (Requieren filtro 'auth')
+// --------------------------------------------------------------------
+// 1. Rutas compartidas (Accesibles por 'administrador' y 'encargado')
+// --------------------------------------------------------------------
 $routes->group('', ['filter' => ['auth']], function($routes) {
-    // Inicio / Dashboard
+    // Redirección del Inicio / Dashboard según rol
     $routes->get('/', 'Home::index');
-    $routes->get('facturacion', 'Home::index');
+    $routes->get('dashboard', 'Home::index');
+
+    // Módulo de Facturación
+    $routes->get('facturas', 'FacturacionController::index');
+    $routes->get('facturas/nueva', 'FacturacionController::nueva');
+});
+
+// --------------------------------------------------------------------
+// 2. Rutas exclusivas de Administrador (Requieren 'auth' y 'admin')
+// --------------------------------------------------------------------
+$routes->group('', ['filter' => ['auth', 'admin']], function($routes) {
     
-    // Módulo de Categorías
+    // Categorías
     $routes->get('categorias', 'CategoriaController::index');
     $routes->post('categorias/guardar', 'CategoriaController::guardar');
     $routes->get('categorias/eliminar/(:num)', 'CategoriaController::eliminar/$1');
 
-    // Módulo de Marcas
+    // Marcas
     $routes->get('marcas', 'MarcaController::index');
     $routes->post('marcas/guardar', 'MarcaController::guardar');
     $routes->get('marcas/eliminar/(:num)', 'MarcaController::eliminar/$1');
 
-    // Módulo de Clientes
+    // Clientes
     $routes->get('clientes', 'ClienteController::index');
     $routes->post('clientes/guardar', 'ClienteController::guardar');
     $routes->get('clientes/eliminar/(:num)', 'ClienteController::eliminar/$1');
 
-    // Módulo de Proveedores
+    // Proveedores
     $routes->group('proveedores', function($routes) {
         $routes->get('', 'ProveedorController::index');
         $routes->get('index', 'ProveedorController::index');
@@ -38,7 +50,7 @@ $routes->group('', ['filter' => ['auth']], function($routes) {
         $routes->get('eliminar/(:num)', 'ProveedorController::eliminar/$1');
     });
 
-    // Módulo de Usuarios
+    // Usuarios
     $routes->group('usuarios', function($routes) {
         $routes->get('', 'UsuarioController::index');
         $routes->get('index', 'UsuarioController::index');
@@ -46,24 +58,19 @@ $routes->group('', ['filter' => ['auth']], function($routes) {
         $routes->get('eliminar/(:num)', 'UsuarioController::eliminar/$1');
     });
 
-    // Módulo de Productos
+    // Productos
     $routes->group('productos', function($routes) {
         $routes->get('', 'ProductoController::index');
         $routes->get('index', 'ProductoController::index');
         $routes->post('guardar', 'ProductoController::guardar');
         $routes->get('eliminar/(:num)', 'ProductoController::eliminar/$1');
     });
-
-    // facturas nuevas
-    $routes->get('facturas', 'FacturacionController::index');
-    $routes->get('facturas/nueva', 'FacturacionController::nueva');
-
 });
 
-// 2. Rutas Protegidas exclusivas para AJAX
+// --------------------------------------------------------------------
+// 3. Rutas AJAX compartidas para la Facturación
+// --------------------------------------------------------------------
 $routes->group('', ['filter' => ['auth', 'ajax']], function($routes) {
-    // Agrega aquí únicamente rutas que retornen JSON o fragmentos HTML vía AJAX.
-
     $routes->get('facturacion/buscarCliente', 'FacturacionController::buscarCliente');
     $routes->get('facturacion/buscarProducto', 'FacturacionController::buscarProducto');
     $routes->get('facturacion/verDetalle/(:num)', 'FacturacionController::verDetalle/$1');
