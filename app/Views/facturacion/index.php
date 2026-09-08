@@ -47,9 +47,14 @@ Historial de Facturas
                                     <td><?= esc($f['usuario_nombre']) ?></td>
                                     <td class="text-end fw-bold text-success">$<?= number_format($f['total'], 2) ?></td>
                                     <td class="text-center">
-                                        <button class="btn btn-sm btn-outline-info btn-ver-detalle" data-id="<?= $f['id_venta'] ?>">
-                                            <i class="bi bi-eye-fill me-1"></i> Ver Detalle
-                                        </button>
+                                        <div class="btn-group" role="group">
+                                            <button class="btn btn-sm btn-outline-info btn-ver-detalle" data-id="<?= $f['id_venta'] ?>" title="Ver Detalle">
+                                                <i class="bi bi-eye-fill me-1"></i> Ver Detalle
+                                            </button>
+                                            <a href="<?= base_url('facturas/pdf/' . $f['id_venta']) ?>" class="btn btn-sm btn-outline-danger" target="_blank" title="Imprimir PDF">
+                                                <i class="bi bi-file-earmark-pdf-fill"></i> PDF
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             <?php endforeach; ?>
@@ -104,6 +109,9 @@ Historial de Facturas
                 </div>
             </div>
             <div class="modal-footer">
+                <a href="#" id="btnImprimirModal" class="btn btn-danger" target="_blank">
+                    <i class="bi bi-printer-fill me-1"></i> Imprimir PDF
+                </a>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>
@@ -133,6 +141,9 @@ $(document).ready(function() {
                 $('#detFecha').text(res.venta.fecha);
                 $('#detUsuario').text(res.venta.usuario_nombre);
                 $('#detTotal').text('$' + parseFloat(res.venta.total).toFixed(2));
+                
+                // Actualiza el enlace de impresión dentro del Modal
+                $('#btnImprimirModal').attr('href', '<?= base_url('facturas/pdf/') ?>' + res.venta.id_venta);
 
                 let rows = '';
                 res.detalles.forEach(d => {

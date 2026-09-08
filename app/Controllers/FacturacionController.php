@@ -78,8 +78,8 @@ class FacturacionController extends BaseController
         $detalles = $this->detalleVentaModel->obtenerDetallesPorVenta($idVenta);
 
         return $this->response->setJSON([
-            'status' => 'success',
-            'venta' => $venta,
+            'status'   => 'success',
+            'venta'    => $venta,
             'detalles' => $detalles
         ]);
     }
@@ -88,11 +88,11 @@ class FacturacionController extends BaseController
     public function guardar()
     {
         $db = \Config\Database::connect();
-        $db->transStart(); // Inicio de transacción para garantizar atomicidad
+        $db->transStart();
 
         try {
             $idCliente = $this->request->getPost('id_cliente');
-            $idUsuario = session()->get('id_usuario') ?? 1; // ID de usuario logueado
+            $idUsuario = session()->get('id_usuario') ?? 1;
             $productos = $this->request->getPost('productos');
 
             if (empty($idCliente) || empty($productos) || !is_array($productos)) {
@@ -102,7 +102,6 @@ class FacturacionController extends BaseController
             $subtotalGeneral = 0;
             $itemsAProcesar = [];
 
-            // Validación rigurosa de Stock en la BDD antes de guardar
             foreach ($productos as $p) {
                 $prodDB = $this->productoModel->find($p['id_producto']);
 
@@ -131,18 +130,15 @@ class FacturacionController extends BaseController
                 ];
             }
 
-            // Impuestos (IVA 15%) y Total Final
             $iva = $subtotalGeneral * 0.15;
             $totalFinal = $subtotalGeneral + $iva;
 
-            // 1. Insertar Cabecera (tabla: venta)
             $idVenta = $this->ventaModel->insert([
                 'id_cliente' => $idCliente,
                 'id_usuario' => $idUsuario,
                 'total'      => $totalFinal
             ]);
 
-            // 2. Insertar Detalle (tabla: detalle_venta) y Descontar Stock (tabla: producto)
             foreach ($itemsAProcesar as $item) {
                 $this->detalleVentaModel->insert([
                     'id_venta'        => $idVenta,
@@ -152,7 +148,6 @@ class FacturacionController extends BaseController
                     'subtotal'        => $item['subtotal']
                 ]);
 
-                // Actualizar inventario (Disminución de Stock)
                 $nuevoStock = $item['stock_actual'] - $item['cantidad'];
                 $this->productoModel->update($item['id_producto'], ['stock' => $nuevoStock]);
             }
@@ -169,5 +164,28 @@ class FacturacionController extends BaseController
             $db->transRollback();
             return $this->response->setJSON(['status' => 'error', 'message' => $e->getMessage()]);
         }
+    }
+
+    // Generar vista de impresión/PDF
+    public function pdf($id)
+    {
+        $venta = $this->ventaModel->select('venta.*, cliente.nombre as cliente_nombre, cliente.identificacion, usuario.nombre as usuario_nombre')
+                                  ->join('cliente', 'cliente.id_cliente = venta.id_cliente')
+                                  ->join('usuario', 'usuario.id_usuario = venta.id_usuario')
+                                  ->where('venta.id_venta', $id)
+                                  ->first();
+
+        if (!$venta) {
+            return redirect()->to(base_url('facturas'))->with('error', 'Factura no encontrada.');
+        }
+
+        $detalles = $this->detalleVentaModel->obtenerDetallesPorVenta($id);
+
+        $data = [
+            'venta'    => $venta,
+            'detalles' => $detalles
+        ];
+
+        return view('facturacion/pdf', $data);
     }
 }

@@ -20,6 +20,7 @@ $routes->group('', ['filter' => ['auth']], function($routes) {
     // Módulo de Facturación
     $routes->get('facturas', 'FacturacionController::index');
     $routes->get('facturas/nueva', 'FacturacionController::nueva');
+    $routes->get('facturas/pdf/(:num)', 'FacturacionController::pdf/$1'); // Ruta agregada para generación de PDF
 });
 
 // --------------------------------------------------------------------
