@@ -81,6 +81,31 @@
                     </ul>
                 </li>
 
+                <!-- Módulo de Compras (Exclusivo Administrador) -->
+                    <li class="nav-item <?= (url_is('compras*')) ? 'menu-open' : '' ?>">
+                        <a href="#" class="nav-link <?= (url_is('compras*')) ? 'active' : '' ?>">
+                            <i class="nav-icon fas fa-shopping-bag"></i>
+                            <p>
+                                Compras
+                                <i class="right fas fa-angle-left"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="<?= base_url('compras') ?>" class="nav-link <?= (url_is('compras') && !url_is('compras/nueva')) ? 'active' : '' ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Historial de Compras</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="<?= base_url('compras/nueva') ?>" class="nav-link <?= (url_is('compras/nueva')) ? 'active' : '' ?>">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Nueva Compra / Stock</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
                 <!-- SOLO ADMINISTRADOR -->
                 <?php if (session()->get('rol') === 'administrador'): ?>
                     <li class="nav-item">

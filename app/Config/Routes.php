@@ -20,7 +20,7 @@ $routes->group('', ['filter' => ['auth']], function($routes) {
     // Módulo de Facturación
     $routes->get('facturas', 'FacturacionController::index');
     $routes->get('facturas/nueva', 'FacturacionController::nueva');
-    $routes->get('facturas/pdf/(:num)', 'FacturacionController::pdf/$1'); // Generación de PDF
+    $routes->get('facturas/pdf/(:num)', 'FacturacionController::pdf/$1');
 });
 
 // --------------------------------------------------------------------
@@ -66,18 +66,25 @@ $routes->group('', ['filter' => ['auth', 'admin']], function($routes) {
         $routes->post('guardar', 'ProductoController::guardar');
         $routes->get('eliminar/(:num)', 'ProductoController::eliminar/$1');
     });
+
+    // MÓDULO DE COMPRAS (Agregado)
+    $routes->group('compras', function($routes) {
+        $routes->get('', 'CompraController::index');
+        $routes->get('index', 'CompraController::index');
+        $routes->get('nueva', 'CompraController::nueva');
+        $routes->post('guardar', 'CompraController::guardar');
+    });
 });
 
 // --------------------------------------------------------------------
 // 3. Rutas AJAX compartidas
 // --------------------------------------------------------------------
 $routes->group('', ['filter' => ['auth', 'ajax']], function($routes) {
-    // Facturación
     $routes->get('facturacion/buscarCliente', 'FacturacionController::buscarCliente');
     $routes->get('facturacion/buscarProducto', 'FacturacionController::buscarProducto');
     $routes->get('facturacion/verDetalle/(:num)', 'FacturacionController::verDetalle/$1');
     $routes->post('facturacion/guardar', 'FacturacionController::guardar');
 
-    // Dashboard (Métricas en tiempo real)
+    // Dashboard
     $routes->get('metricas-ajax', 'Home::obtenerMetricasAjax');
 });
